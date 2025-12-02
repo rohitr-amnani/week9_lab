@@ -3,6 +3,7 @@ from week7.Auth import login_user, register_user, validate_username, validate_pa
 
 st.set_page_config(page_title="Login", page_icon="🔒")
 
+
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 if "username" not in st.session_state:
@@ -10,15 +11,17 @@ if "username" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "system", "content": "You are a helpful assistant."}]
 
+
 if st.session_state.logged_in:
-    st.success(f"You are logged in as {st.session_state.username}")
-    if st.button("Go to AI Dashboard"):
-        st.switch_page("pages/1_ai.py")
+    st.title("Welcome!")
+    st.success(f"Hello, {st.session_state.username}! You are now logged in.")
+
 else:
     st.title("🔐 Multi-Domain Intelligence Platform")
     
     tab_login, tab_register = st.tabs(["Login", "Register"])
 
+   
     with tab_login:
         st.subheader("Login")
         username = st.text_input("Username", key="login_user")
@@ -29,10 +32,11 @@ else:
                 st.session_state.logged_in = True
                 st.session_state.username = username
                 st.success("Login successful!")
-                st.switch_page("pages/1_ai.py")
+                st.rerun()
             else:
                 st.error("Invalid username or password.")
 
+  
     with tab_register:
         st.subheader("Register New Account")
         new_user = st.text_input("Choose Username", key="reg_user")
